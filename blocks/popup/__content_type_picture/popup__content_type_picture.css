@@ -1,0 +1,17 @@
+/*+
+Можно лучше: Неоднозначное название модификатора, на мой взгляд, понятней будет так: popup__content_type_picture
+А то можно подумать, что была допущена ошибка в наименовании БЭМ элемента.
+*/
+.popup__content_type_picture {
+/*    width: 100%;
+    height: 100%;*/
+    max-width: 80vw;
+    max-height: 80vh;
+/*    border-radius: 10px;*/
+    position: relative;
+    box-sizing: border-box;
+/*    background-image: url("https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg");
+    background-size: cover;
+    background-position: center;*/
+}
+

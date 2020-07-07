@@ -1,0 +1,47 @@
+
+@import url(../vendor/fonts.css);
+@import url(../blocks/root/root.css);
+@import url(../blocks/header/header.css);
+@import url(../blocks/logo/logo.css);
+@import url(../blocks/user-info/user-info.css);
+@import url(../blocks/button/button.css);
+@import url(../blocks/places-list/places-list.css);
+@import url(../blocks/place-card/place-card.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/error/error.css);
+
+
+@font-face {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url("../fonts/Inter(Web)/Inter-Black.woff2?v=3.12") format("woff2"),
+    url("../fonts/Inter(Web)/Inter-Black.woff?v=3.12") format("woff");
+}
+
+@font-face {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("../fonts/Inter(Web)/Inter-Regular.woff2?v=3.12") format("woff2"),
+    url("../fonts/Inter(Web)/Inter-Regular.woff?v=3.12") format("woff");
+}
+
+@font-face {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("../fonts/Inter(Web)/Inter-SemiBold.woff2?v=3.12") format("woff2"),
+    url("../fonts/Inter(Web)/Inter-SemiBold.woff?v=3.12") format("woff");
+}
+body {
+  background-color: #000;
+}
+
+html, body {
+    font-family: Inter, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
