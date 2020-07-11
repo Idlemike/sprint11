@@ -1,6 +1,7 @@
 'use strict';
+import {errorMessages} from "./data";
 
-class FormValidator {
+export default class FormValidator {
 
 //Валидация
     /**Функция проверки поля на ошибки, возвращает истину если поле валидно или ложь в противном случае, устанавливает кастомное сообщение об ошибке*/
@@ -23,11 +24,6 @@ class FormValidator {
             return false
         }
         if (input.validity.rangeOverflow) {
-            /** REVIEW: Можно лучше:
-             *
-             * Переменная max объявлена, но не используется, рекомендую ее убрать.
-             */
-            let max = input.getAttribute('max');
             input.setCustomValidity(errorMessages.wrongLength);
             return false
         }
@@ -47,8 +43,8 @@ class FormValidator {
         this.inputs = [...form.elements];
         this.valid = true;
         this.inputs.forEach((input) => {
-            if (input.type !== 'submit' && input.type !== 'button') {
-                if (!this.isFieldValid(input)) this.valid = false;
+            if ((input.type !== 'submit' && input.type !== 'button') && (!this.isFieldValid(input))){
+                 this.valid = false;
             }
         });
         return this.valid;

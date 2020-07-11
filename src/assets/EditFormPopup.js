@@ -1,4 +1,6 @@
-class EditFormPopup extends Popup {
+import Popup from "./Popup";
+
+export default class EditFormPopup extends Popup {
     constructor(editButton,
                 popupEditClose,
                 validateInput,
@@ -38,7 +40,7 @@ class EditFormPopup extends Popup {
     /**Обработчик клика клавы*/
     handleEscKey(event) {
         super.handleEscKey(event, this.popupWindowEditContainer);
-    };
+    }
 
     /** Обработчик клика по кнопке «CloseEditWindow»*/
     close() {
@@ -47,7 +49,7 @@ class EditFormPopup extends Popup {
         this.formEditUserInfoData.reset();
         this.errorNameEdit.textContent = '';
         this.errorJobEdit.textContent = '';
-    };
+    }
 
     /**смена userInfo*/
     changeUserInfo = (checkedName, checkedJob) => {
@@ -72,7 +74,7 @@ class EditFormPopup extends Popup {
             //отправляем запрос на сервер
             this.api.postUserInfo(this.yourName, this.job)
                 .then(res => {
-                    this.changeUserInfo(res.name, res.about)
+                    return this.changeUserInfo(res.name, res.about)
                 })
                 .catch(err => console.log(err))
         }
@@ -85,7 +87,7 @@ class EditFormPopup extends Popup {
         super.open(this.popupWindowEditContainer);
         this.nameEdit.focus();
         this.root.addEventListener('keydown', this.handleEscKey);
-    };
+    }
 
 
     setEventListeners() {

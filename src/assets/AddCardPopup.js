@@ -1,4 +1,6 @@
-class AddCardPopup extends Popup {
+import Popup from "./Popup";
+
+export default class AddCardPopup extends Popup {
     constructor(
         addCardList,
         /*
@@ -35,16 +37,16 @@ class AddCardPopup extends Popup {
     /**Обработчик клика клавы*/
     handleEscKey(event) {
         super.handleEscKey(event, this.popupWindowContainer);
-    };
+    }
 
     /**  Обработчик клика по кнопке «CloseWindow»*/
-    close(event) {
+    close() {
         super.close(this.popupWindowContainer);
         this.form.reset();
         this.root.removeEventListener('keydown', this.handleEscKey);
         this.errorNameForm.textContent = '';
         this.errorLinkForm.textContent = '';
-    };
+    }
 
     /**     обработчик submit addCard*/
     handleAddCardSubmit = event => {
@@ -57,17 +59,22 @@ class AddCardPopup extends Popup {
             this.link = this.form.elements.link;
             //=============================================
             //отправляем запрос на сервер
-            this.api.createCard(this.name, this.link).then((res) => {
-                this.hasLike = false;
-                this.addCardList(res.name, res.link, this.likes, res._id, res.owner._id, this.hasLike, res.owner._id);
-                this.form.reset();
-                this.addButton.textContent = '+';
-                this.addButton.style.fontSize = '36px';
-                this.popupWindowContainer.classList.remove('popup_is-opened');
-                this.addButton.classList.remove('popup__button_valid');
-                this.addButton.classList.add('popup__button_invalid');
-                this.addButton.setAttribute('disabled', 'disabled');
-            }).catch(err => console.log(err))
+            return this.api.createCard(this.name, this.link)
+                .then((res) => {
+                    this.hasLike = false;
+                    this.addCardList(res.name, res.link, this.likes, res._id, res.owner._id, this.hasLike, res.owner._id);
+                    return true
+                })
+                .catch(err => console.log(err))
+                .finally(() => {
+                    this.form.reset();
+                    this.addButton.style.fontSize = '36px';
+                    this.popupWindowContainer.classList.remove('popup_is-opened');
+                    this.addButton.classList.remove('popup__button_valid');
+                    this.addButton.classList.add('popup__button_invalid');
+                    this.addButton.setAttribute('disabled', 'disabled')
+                })
+
         }
     };
 
@@ -76,7 +83,7 @@ class AddCardPopup extends Popup {
         super.open(this.popupWindowContainer);
         this.nameForm.focus();
         this.root.addEventListener('keydown', this.handleEscKey);
-    };
+    }
 
 
     setEventListeners(plusButton, popupClose) {

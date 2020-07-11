@@ -1,7 +1,11 @@
 'use strict';
 
-class Card {
-
+export default class Card {
+    placeCard = '.place-card';
+    placeCardLikeIcon = '.place-card__like-icon';
+    placeCardImage = '.place-card__image';
+    placeCardLikeIconLiked = 'place-card__like-icon_liked';
+    placeCardDeleteIcon = '.place-card__delete-icon';
     constructor(template, name, link, likes, idName, idOwner, hasLike, api, userInfoId, openPicturePopup) {
         this.template = template;
         this.name = name;
@@ -22,17 +26,18 @@ class Card {
 
 //функция обработчик like
     _like = (event) => {
-        this.cardId = event.target.closest('.place-card').id;
-        this.card = event.target.closest('.place-card');
-        if (event.target.classList.contains('place-card__like-icon_liked')) {
+
+        this.cardId = event.target.closest(this.placeCard).id;
+        this.card = event.target.closest(this.placeCard);
+        if (event.target.classList.contains(this.placeCardLikeIconLiked)) {
             this._api.deleteLike(this.cardId).then((res) => {
-                this.changeLikeNumbers(this.card, res);
-                event.target.classList.toggle('place-card__like-icon_liked');
+                event.target.classList.toggle(this.placeCardLikeIconLiked);
+                return this.changeLikeNumbers(this.card, res);
             }).catch(err => console.log(err))
         } else {
             this._api.putLike(this.cardId).then((res) => {
-                this.changeLikeNumbers(this.card, res);
-                event.target.classList.toggle('place-card__like-icon_liked');
+                event.target.classList.toggle(this.placeCardLikeIconLiked);
+                return this.changeLikeNumbers(this.card, res);
             }).catch(err => console.log(err))
         }
     };
@@ -40,20 +45,20 @@ class Card {
     create = () => {
         this._view = this.template.cloneNode(true).children[0];
         this._view.querySelector('.place-card__name').textContent = this.name;
-        this._view.querySelector('.place-card__image').style.backgroundImage = `url(${this.link})`;
+        this._view.querySelector(this.placeCardImage).style.backgroundImage = `url(${this.link})`;
         this._view.querySelector('.place-card__like-number').textContent = this.likes;
         this._view.setAttribute('id', this.idName);
         this._view.setAttribute('dataIdOwner', this.idOwner);
 
         if (this.idOwner === this.userInfoId) {
-            this._view.querySelector('.place-card__delete-icon').addEventListener('click', this._delClickHandler);
-            this._view.querySelector('.place-card__delete-icon').classList.add('place-card__delete-icon_show');
+            this._view.querySelector(this.placeCardDeleteIcon).addEventListener('click', this._delClickHandler);
+            this._view.querySelector(this.placeCardDeleteIcon).classList.add('place-card__delete-icon_show');
         }
         if (this.hasLike) {
-            this._view.querySelector('.place-card__like-icon').classList.add('place-card__like-icon_liked')
+            this._view.querySelector(this.placeCardLikeIcon).classList.add(this.placeCardLikeIconLiked)
         }
-        this._view.querySelector('.place-card__like-icon').addEventListener('click', this._like);
-        this._view.querySelector('.place-card__image').addEventListener('click', (event) => this.openPicturePopup(event), true);
+        this._view.querySelector(this.placeCardLikeIcon).addEventListener('click', this._like);
+        this._view.querySelector(this.placeCardImage).addEventListener('click', (event) => this.openPicturePopup(event), true);
         return this._view
     };
 
@@ -63,10 +68,11 @@ class Card {
         if (window.confirm("Вы действительно хотите удалить эту карточку?")) {
             this.cardId = event.target.closest('.place-card').id;
             this._api.deleteCard(this.cardId).then(() => {
-                this._view.remove();
-                this._view.querySelector('.place-card__delete-icon').removeEventListener('click', this._delClickHandler);
-                this._view.querySelector('.place-card__like-icon').removeEventListener('click', this._like);
-                this._view.querySelector('.place-card__image').removeEventListener('click', (event) => this.openPicturePopup(event), true);
+                this._view.querySelector(this.placeCardDeleteIcon).removeEventListener('click', this._delClickHandler);
+                this._view.querySelector(this.placeCardLikeIcon).removeEventListener('click', this._like);
+                this._view.querySelector(this.placeCardImage).removeEventListener('click', (event) => this.openPicturePopup(event), true);
+                return this._view.remove();
+
             }).catch(err => console.log(err))
         }
     }

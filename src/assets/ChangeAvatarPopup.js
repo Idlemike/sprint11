@@ -1,4 +1,6 @@
-class ChangeAvatarPopup extends Popup {
+import Popup from "./Popup";
+
+export default class ChangeAvatarPopup extends Popup {
     constructor(
         avatarContainer,
         popupAvatarClose,
@@ -31,7 +33,7 @@ class ChangeAvatarPopup extends Popup {
     /**Обработчик клика клавы*/
     handleEscKey(event){
         super.handleEscKey(event, this.popupAvatarChangeContainer)
-    };
+    }
     /**обработчик клика changeAvatar*/
     close = () => {
         super.close(this.popupAvatarChangeContainer);
@@ -46,10 +48,10 @@ class ChangeAvatarPopup extends Popup {
         super.open(this.popupAvatarChangeContainer);
         this.inputAvatarPopup.focus();
         this.root.addEventListener('keydown', this.handleEscKey);
-    };
+    }
 
     /**   установка аватара*/
-    installAvatar = (avatarChecked, name, about) => {
+    installAvatar = (avatarChecked) => {
         this.modifyAvatar(avatarChecked);
         this.formChangeAvatar.reset();
         this.popupAvatarChangeContainer.classList.remove('popup_is-opened');
@@ -67,7 +69,7 @@ class ChangeAvatarPopup extends Popup {
             //отправляем запрос на сервер
             this.api.postAvatar(this.linkAvatar)
                 .then((res) => {
-                    this.installAvatar(res.avatar, res.name,  res.about)
+                    return this.installAvatar(res.avatar)
                 })
                 .catch(err => console.log(err))
         }

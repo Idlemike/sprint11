@@ -1,8 +1,13 @@
-class ImagePopup extends Popup {
+import Popup from "./Popup";
+
+
+export default class ImagePopup extends Popup {
+
     constructor(
         popupWindowPicture,
         popupWindowPictureContainer,
-        popupPictureClose
+        popupPictureClose,
+        picture404
         /*
          Можно лучше:
          - Перенести параметр на следующую строку
@@ -12,7 +17,7 @@ class ImagePopup extends Popup {
         this.popupWindowPicture = popupWindowPicture;
         this.popupWindowPictureContainer = popupWindowPictureContainer;
         this.popupPictureClose = popupPictureClose;
-
+        this.picture404 = picture404
     }
 
     /**Обработчик клика по закрыть попап картинки*/
@@ -32,6 +37,7 @@ class ImagePopup extends Popup {
             img.onerror = reject;
         })
     }
+
     /**Обработчик клика по картинке*/
     open = (event) => {
         if (event.target.classList.contains('place-card__image')) {
@@ -40,16 +46,17 @@ class ImagePopup extends Popup {
             this.checkImgSrc(this.img)
                 .then(() => {
                     this.popupWindowPicture.setAttribute("src", this.img);
-                    super.open(this.popupWindowPictureContainer);
                     this.popupPictureClose.addEventListener('click', this.close);
+                    return super.open(this.popupWindowPictureContainer);
                 })
                 .catch((err) => {
                     console.log(`invalid src: ${img} ${err.type}`);
-                    this.img = 'images/404.jpg';
+                    this.img = this.picture404;
                     this.popupWindowPicture.setAttribute("src", this.img);
                     super.open(this.popupWindowPictureContainer);
                     this.popupPictureClose.addEventListener('click', this.close);
                 });
+
         }
     }
 }

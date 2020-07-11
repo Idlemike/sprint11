@@ -1,5 +1,19 @@
 'use strict';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import "./style.css";
+import FormValidator from "@/assets/FormValidator";
+import Api from "@/assets/Api";
+import UserInfo from "@/assets/UserInfo";
+import ChangeAvatarPopup from "@/assets/ChangeAvatarPopup";
+import CardList from "@/assets/CardList";
+import Card from "@/assets/Card";
+import ImagePopup from "@/assets/ImagePopup";
+import AddCardPopup from "@/assets/AddCardPopup";
+import EditFormPopup from "@/assets/EditFormPopup";
+
 (function () {
+//imports
 
     /* Переменные */
     const cardContainer = document.querySelector('.places-list');
@@ -40,10 +54,18 @@
     const nameEdit = document.querySelector('#nameEdit');
     const jobEdit = document.querySelector('#jobEdit');
     const nameForm = document.querySelector('#nameForm');
+    const picture404 = require('./images/404.jpg');
 
     /**API const*/
+
+const API_URL = NODE_ENV === 'production' ? 'https://praktikum.tk' : 'http://praktikum.tk';
+
+const apiData = {
+  baseUrl: `${API_URL}/cohort11`,
+};
+
     const config = {
-        url: 'https://praktikum.tk/cohort11',
+        url: apiData.baseUrl,
         headers: {
             authorization: 'e12f1602-2248-40d3-b961-19aa86fb3b4d',
             'Content-Type': 'application/json'
@@ -119,7 +141,7 @@
         errorNameForm,
         errorLinkForm,
         nameForm);
-    const imagePopup = new ImagePopup(popupWindowPicture, popupWindowPictureContainer, popupPictureClose);
+    const imagePopup = new ImagePopup(popupWindowPicture, popupWindowPictureContainer, popupPictureClose, picture404);
     const editFormPopup = new EditFormPopup(
         editButton,
         popupEditClose,
@@ -161,7 +183,7 @@
                     errorAvatarEdit,
                     root,
                     inputAvatarPopup);
-                changeAvatarPopup.setEventListeners();
+                return changeAvatarPopup.setEventListeners();
             })
             .catch(err =>
                 console.log(err))
@@ -172,7 +194,7 @@
         api.getCards()
             .then((res) => {
                 const userInfoId = document.querySelector('.user-info__name').getAttribute("id");
-                cardList.render(res, userInfoId)
+                return cardList.render(res, userInfoId)
             })
             .catch(err =>
                 console.log(err))

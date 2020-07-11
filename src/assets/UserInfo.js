@@ -1,7 +1,7 @@
 'use strict';
 
 /**редактирование имя профессия и аватар*/
-class UserInfo {
+export default class UserInfo {
 
     constructor({userInfoName, userInfoJob, userInfoPhoto}) {
         this.userInfoName = userInfoName;
@@ -18,7 +18,7 @@ class UserInfo {
         this.name = name;
         this.job = about;
         this.url = url;
-    };
+    }
     //меняет данные юзера
     updateUserInfo = () => {
         this.userInfoName.textContent = this.name;

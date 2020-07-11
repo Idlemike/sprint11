@@ -1,11 +1,11 @@
 'use strict';
 
-class Popup {
+export default class Popup {
 
     /**функция закрытия попапа*/
     close(popup) {
         popup.classList.remove('popup_is-opened');
-    };
+    }
 
     /**Обработчик клика клавы*/
     handleEscKey = (event, popup) => {
@@ -17,7 +17,7 @@ class Popup {
     /**функция открытия попапа */
     open(popup) {
         popup.classList.add('popup_is-opened');
-    };
+    }
 
 
 }

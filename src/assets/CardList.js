@@ -1,6 +1,6 @@
 'use strict';
 
-class CardList {
+export default class CardList {
 
 
     constructor(cardContainer, createCard, api, template, openPicturePopup) {
