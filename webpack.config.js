@@ -13,14 +13,15 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 // создаем переменную для development-сборки
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
     /*JS*/
     context: path.resolve(__dirname, 'src'),
-    entry: {
+    entry:
+{
         main: './index.js'},
+
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[hash].js'
@@ -31,6 +32,10 @@ module.exports = {
             '@': path.resolve(__dirname, 'src'),
         }
     },
+    devServer: {
+        disableHostCheck: true
+    },
+
     devtool: isDev ? 'source-map' : '',
     module: {
         rules: [{
@@ -38,6 +43,7 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/,
             loader: "eslint-loader",
+
             options: {
                 "extends": "eslint:recommended",
                 // eslint options (if necessary)
@@ -45,22 +51,14 @@ module.exports = {
         },
             { // тут описываются правила
             test: /\.js$/, // регулярное выражение, которое ищет все js файлы
-            use: [
+            use:
                 {
                     loader: "babel-loader",
-                    options: {
-                        presets: [
-                            "@babel/preset-env",
-                        ],
-                        plugins: [
-                            "@babel/plugin-syntax-dynamic-import",
-                            "@babel/plugin-proposal-class-properties"
-                        ]
-                    }
+
 
                 },
 
-            ], // весь JS обрабатывается пакетом babel-loader
+             // весь JS обрабатывается пакетом babel-loader
             exclude: /node_modules/ // исключает папку node_modules
         },
             // пример настройки плагина image-webpack-loader
@@ -128,14 +126,6 @@ module.exports = {
             template: './index.html',
             filename: 'index.html'
         }),
-        new WebpackMd5Hash(),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, 'src/faviconka_ru_107.ico'),
-                    to: path.resolve(__dirname, 'dist')
-                }
-            ],
-        })
+        new WebpackMd5Hash()
     ]
 };
