@@ -26,9 +26,6 @@ JS-ES6, CSS3, HTML5, WebPack, GIT, Babel, OOP,BEM
 * start production build `npm run build`
 * post production build on GitHub Pages `npm run deploy`
 ***
-инструкцию по разворачиванию проекта (клонирование, установка зависимостей, запуск сборки в режиме development и production, публикация на github pages). Для каждого пункта инструкции необходимо указать соответствующую команду.
-***
-
 ## **Connected library**
 Node_modules
 ***
