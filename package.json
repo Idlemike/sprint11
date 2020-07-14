@@ -1,7 +1,7 @@
 {
   "name": "sprint11",
-  "version": "0.0.2",
-  "description": "After first review",
+  "version": "0.0.3",
+  "description": "training project on webpack and module-style programming",
   "main": "./src/index.js",
   "eslintConfig": {
     "parser": "babel-eslint",
