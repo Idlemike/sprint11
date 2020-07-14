@@ -26,7 +26,6 @@ JS-ES6, CSS3, HTML5, WebPack, GIT, Babel, OOP,BEM
 * start production build `npm run build`
 * post production build on GitHub Pages `npm run deploy`
 ***
-
 ## **Connected library**
 Node_modules
 ***
