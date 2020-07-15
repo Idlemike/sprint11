@@ -1,0 +1,46 @@
+@import "~normalize.css";
+@import url(../vendor/fonts.css);
+@import url(./blocks/root/root.css);
+@import url(./blocks/header/header.css);
+@import url(./blocks/logo/logo.css);
+@import url(./blocks/user-info/user-info.css);
+@import url(./blocks/button/button.css);
+@import url(./blocks/places-list/places-list.css);
+@import url(./blocks/place-card/place-card.css);
+@import url(./blocks/popup/popup.css);
+@import url(./blocks/error/error.css);
+
+
+
+@font-face {
+    font-family: InterBlack;
+    font-style: normal;
+    font-weight: 900;
+    src: url("../vendor/Inter-Black.woff2?v=3.12") format("woff2")
+
+}
+
+@font-face {
+    font-family: InterRegular;
+    font-style: normal;
+    font-weight: 400;
+
+    src: url("../vendor/Inter-Regular.woff2?v=3.12") format("woff2")
+
+}
+
+@font-face {
+    font-family: InterSemiBold;
+    font-style: normal;
+    font-weight: 600;
+    src: url("../vendor/Inter-SemiBold.woff2?v=3.12") format("woff2")
+
+}
+body {
+  background-color: #000;
+}
+
+html, body {
+    font-family: InterRegular, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
